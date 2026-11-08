@@ -1,0 +1,279 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-display);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Vibrant Mandala palette */
+  --color-mandala-saffron: #ff8a00;
+  --color-mandala-marigold: #ffb300;
+  --color-mandala-magenta: #e91e63;
+  --color-mandala-pink: #ff4081;
+  --color-mandala-rose: #f50057;
+  --color-mandala-purple: #6a1b9a;
+  --color-mandala-deep: #2d0a2e;
+  --color-mandala-night: #15001f;
+  --color-mandala-gold: #ffd54f;
+}
+
+:root {
+  --radius: 0.625rem;
+  /* Dark festive theme as base — the entire site is a deep night sky with mandala lights */
+  --background: #15001f;
+  --foreground: #fff4e6;
+  --card: rgba(45, 10, 46, 0.6);
+  --card-foreground: #fff4e6;
+  --popover: #2d0a2e;
+  --popover-foreground: #fff4e6;
+  --primary: #ff8a00;
+  --primary-foreground: #15001f;
+  --secondary: #6a1b9a;
+  --secondary-foreground: #fff4e6;
+  --muted: rgba(106, 27, 154, 0.3);
+  --muted-foreground: #d8b4d8;
+  --accent: #e91e63;
+  --accent-foreground: #fff4e6;
+  --destructive: #ff4081;
+  --border: rgba(255, 213, 79, 0.2);
+  --input: rgba(255, 213, 79, 0.15);
+  --ring: #ffd54f;
+  --chart-1: #ff8a00;
+  --chart-2: #e91e63;
+  --chart-3: #ffd54f;
+  --chart-4: #ff4081;
+  --chart-5: #6a1b9a;
+  --sidebar: #2d0a2e;
+  --sidebar-foreground: #fff4e6;
+  --sidebar-primary: #ff8a00;
+  --sidebar-primary-foreground: #15001f;
+  --sidebar-accent: #6a1b9a;
+  --sidebar-accent-foreground: #fff4e6;
+  --sidebar-border: rgba(255, 213, 79, 0.2);
+  --sidebar-ring: #ffd54f;
+}
+
+/* Custom scrollbar — festive gold */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #15001f;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ff8a00, #e91e63);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ffd54f, #ff4081);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #15001f;
+  color: #fff4e6;
+  overflow-x: hidden;
+}
+
+/* Glow text utility */
+.glow-text {
+  text-shadow: 0 0 8px rgba(255, 213, 79, 0.8), 0 0 22px rgba(255, 138, 0, 0.6), 0 0 40px rgba(233, 30, 99, 0.4);
+}
+.glow-text-soft {
+  text-shadow: 0 0 6px rgba(255, 213, 79, 0.6), 0 0 16px rgba(255, 138, 0, 0.4);
+}
+.glow-text-pink {
+  text-shadow: 0 0 8px rgba(255, 64, 129, 0.8), 0 0 22px rgba(233, 30, 99, 0.6), 0 0 40px rgba(245, 0, 87, 0.4);
+}
+
+/* Gradient text */
+.gradient-text-mandala {
+  background: linear-gradient(90deg, #ffd54f 0%, #ff8a00 30%, #e91e63 60%, #ff4081 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% auto;
+  animation: shimmer 4s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Rotating mandala */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes spin-reverse-slow {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+.spin-slow {
+  animation: spin-slow 60s linear infinite;
+}
+.spin-medium {
+  animation: spin-slow 30s linear infinite;
+}
+.spin-fast {
+  animation: spin-slow 15s linear infinite;
+}
+.spin-reverse {
+  animation: spin-reverse-slow 40s linear infinite;
+}
+
+/* Flickering flame */
+@keyframes flicker {
+  0%, 100% { transform: scaleY(1) scaleX(1); opacity: 1; filter: brightness(1); }
+  20% { transform: scaleY(1.1) scaleX(0.95); opacity: 0.95; filter: brightness(1.15); }
+  40% { transform: scaleY(0.95) scaleX(1.05); opacity: 0.9; filter: brightness(0.95); }
+  60% { transform: scaleY(1.08) scaleX(0.97); opacity: 1; filter: brightness(1.1); }
+  80% { transform: scaleY(0.97) scaleX(1.02); opacity: 0.92; filter: brightness(1.05); }
+}
+.flicker {
+  animation: flicker 1.4s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+/* Pulse glow */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 18px rgba(255, 138, 0, 0.5), 0 0 36px rgba(233, 30, 99, 0.3); }
+  50% { box-shadow: 0 0 32px rgba(255, 213, 79, 0.8), 0 0 60px rgba(233, 30, 99, 0.5); }
+}
+.pulse-glow {
+  animation: pulse-glow 2.6s ease-in-out infinite;
+}
+
+/* Floating diyas */
+@keyframes float-up {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-100vh) translateX(20px); opacity: 0; }
+}
+
+/* Twinkle stars */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+.twinkle {
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+/* Slow zoom for story illustrations */
+@keyframes slow-zoom {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+.slow-zoom {
+  animation: slow-zoom 12s ease-in-out infinite;
+}
+
+/* Rangoli petal drop animation */
+@keyframes petal-drop {
+  0% { transform: translateY(-100vh) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+/* Spark animation */
+@keyframes spark {
+  0%, 100% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.5); opacity: 1; }
+}
+
+/* Fade in up */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-in-up {
+  animation: fade-in-up 0.8s ease-out forwards;
+}
+
+/* Reveal on scroll helper (paired with framer-motion whileInView) */
+.section-fade {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+}
+.section-fade.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Glassmorphic festive card */
+.glass-festive {
+  background: linear-gradient(135deg, rgba(106, 27, 154, 0.35), rgba(45, 10, 46, 0.55));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 213, 79, 0.25);
+}
+
+/* Button shimmer */
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.6s ease;
+}
+.btn-shimmer:hover::before {
+  left: 100%;
+}
+
+/* Hide canvas pointer events when needed */
+canvas {
+  touch-action: pan-y;
+}

@@ -1,0 +1,125 @@
+"use client";
+
+/**
+ * In-browser wish store — saves personalized Diwali wishes to localStorage.
+ * Each wish gets a unique short id; the recipient opens the same site with
+ * ?wish=<id> in the URL to see their personalized greeting.
+ */
+
+export type DiyaColor = "saffron" | "magenta" | "gold" | "pink" | "purple";
+
+export interface Wish {
+  id: string;
+  recipientName: string;
+  senderName?: string;
+  message?: string;
+  diyaColor: DiyaColor;
+  createdAt: number;
+  /** globally-incrementing diya-lighting counter, shared by all visitors on this device */
+}
+
+const WISH_KEY = "diwali:wishes:v1";
+const DIYA_COUNT_KEY = "diwali:diyas-lit:v1";
+const RANGOLI_KEY = "diwali:rangoli:v1";
+
+/* ------------------------- wish CRUD ------------------------- */
+
+function readAllWishes(): Record<string, Wish> {
+  if (typeof window === "undefined") return {};
+  try {
+    const raw = window.localStorage.getItem(WISH_KEY);
+    if (!raw) return {};
+    const parsed = JSON.parse(raw);
+    return parsed && typeof parsed === "object" ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+function writeAllWishes(map: Record<string, Wish>) {
+  if (typeof window === "undefined") return;
+  window.localStorage.setItem(WISH_KEY, JSON.stringify(map));
+}
+
+export function makeWishId(): string {
+  // 8-char base36 id — short & shareable
+  const alphabet = "abcdefghijklmnopqrstuvwxyz0123456789";
+  let out = "";
+  for (let i = 0; i < 8; i++) {
+    out += alphabet[Math.floor(Math.random() * alphabet.length)];
+  }
+  return out;
+}
+
+export function createWish(input: Omit<Wish, "id" | "createdAt">): Wish {
+  const id = makeWishId();
+  const wish: Wish = { ...input, id, createdAt: Date.now() };
+  const map = readAllWishes();
+  map[id] = wish;
+  writeAllWishes(map);
+  return wish;
+}
+
+export function getWish(id: string): Wish | null {
+  const map = readAllWishes();
+  return map[id] ?? null;
+}
+
+export function listWishes(): Wish[] {
+  const map = readAllWishes();
+  return Object.values(map).sort((a, b) => b.createdAt - a.createdAt);
+}
+
+export function deleteWish(id: string) {
+  const map = readAllWishes();
+  delete map[id];
+  writeAllWishes(map);
+}
+
+/** Build the shareable URL for a wish. Uses window.location.origin so it works on any host. */
+export function buildWishUrl(id: string): string {
+  if (typeof window === "undefined") return `/?wish=${id}`;
+  return `${window.location.origin}/?wish=${id}`;
+}
+
+/* ------------------------- global diya counter ------------------------- */
+
+export function getDiyaCount(): number {
+  if (typeof window === "undefined") return 0;
+  const raw = window.localStorage.getItem(DIYA_COUNT_KEY);
+  const n = raw ? parseInt(raw, 10) : 0;
+  return Number.isFinite(n) ? n : 0;
+}
+
+export function addDiya(): number {
+  const next = getDiyaCount() + 1;
+  if (typeof window !== "undefined") {
+    window.localStorage.setItem(DIYA_COUNT_KEY, String(next));
+  }
+  return next;
+}
+
+/* ------------------------- rangoli persistence ------------------------- */
+
+export interface RangoliCell {
+  row: number;
+  col: number;
+  color: string;
+}
+
+export function saveRangoli(cells: RangoliCell[]) {
+  if (typeof window === "undefined") return;
+  window.localStorage.setItem(RANGOLI_KEY, JSON.stringify(cells));
+}
+
+export function loadRangoli(): RangoliCell[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = window.localStorage.getItem(RANGOLI_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
