@@ -240,8 +240,7 @@ export default function Home() {
         <WishView
           wish={wish!}
           onBackHome={() => {
-            // navigate to root without query
-            window.history.pushState({}, "", "/");
+            window.history.pushState({}, "", window.location.pathname);
             window.location.reload();
           }}
         />

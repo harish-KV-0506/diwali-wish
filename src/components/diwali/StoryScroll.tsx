@@ -13,6 +13,8 @@ type Chapter = {
   accentColor: string;
 };
 
+const svgCoordinate = (value: number) => Number(value.toFixed(6));
+
 const CHAPTERS: Chapter[] = [
   {
     id: "exile",
@@ -191,8 +193,8 @@ function SceneIllustration({ chapter, color, accent }: { chapter: Chapter; color
                 key={i}
                 x1={0}
                 y1={0}
-                x2={Math.cos(a) * 18}
-                y2={Math.sin(a) * 18}
+                x2={svgCoordinate(Math.cos(a) * 18)}
+                y2={svgCoordinate(Math.sin(a) * 18)}
                 stroke={accent}
                 strokeWidth="2"
                 opacity="0.8"
@@ -210,8 +212,8 @@ function SceneIllustration({ chapter, color, accent }: { chapter: Chapter; color
               key={i}
               x1="270"
               y1="240"
-              x2={270 + Math.cos(a) * 80}
-              y2={240 - Math.sin(a) * 80}
+              x2={svgCoordinate(270 + Math.cos(a) * 80)}
+              y2={svgCoordinate(240 - Math.sin(a) * 80)}
               stroke={accent}
               strokeWidth="1.5"
               opacity="0.4"

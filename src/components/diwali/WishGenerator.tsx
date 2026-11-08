@@ -8,7 +8,6 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import {
-  createWish,
   buildWishUrl,
   type DiyaColor,
 } from "@/lib/wish-store";
@@ -55,13 +54,12 @@ export default function WishGenerator() {
       });
       return;
     }
-    const wish = createWish({
+    const url = buildWishUrl({
       recipientName: recipientName.trim(),
       senderName: senderName.trim() || undefined,
       message: message.trim() || undefined,
       diyaColor,
     });
-    const url = buildWishUrl(wish.id);
     setGeneratedUrl(url);
     setCopied(false);
     toast({
@@ -124,8 +122,8 @@ export default function WishGenerator() {
             <span className="gradient-text-mandala">Light Up Someone's Diwali</span>
           </h2>
           <p className="max-w-2xl text-base text-[#fff4e6]/80 md:text-lg">
-            Enter a name, choose a diya color, and we'll generate a private link —
-            opening it shows them a personalized animated greeting. Magic, delivered.
+            Enter a name, choose a diya color, and we'll create a personal, unlisted link.
+            The greeting travels in the link, so it opens on any device without an account.
           </p>
         </div>
 
@@ -140,6 +138,7 @@ export default function WishGenerator() {
                 id="recipient"
                 value={recipientName}
                 onChange={(e) => setRecipientName(e.target.value)}
+                maxLength={80}
                 placeholder="e.g. Priya, Arjun, Mom…"
                 className="border-[#ffd54f]/25 bg-[#15001f]/60 text-[#fff4e6] placeholder:text-[#fff4e6]/40"
               />
@@ -153,6 +152,7 @@ export default function WishGenerator() {
                 id="sender"
                 value={senderName}
                 onChange={(e) => setSenderName(e.target.value)}
+                maxLength={80}
                 placeholder="From…"
                 className="border-[#ffd54f]/25 bg-[#15001f]/60 text-[#fff4e6] placeholder:text-[#fff4e6]/40"
               />
@@ -196,6 +196,7 @@ export default function WishGenerator() {
                 id="message"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
+                maxLength={500}
                 rows={4}
                 className="resize-none border-[#ffd54f]/25 bg-[#15001f]/60 text-[#fff4e6] placeholder:text-[#fff4e6]/40"
               />
@@ -276,7 +277,7 @@ export default function WishGenerator() {
                 >
                   <div className="flex items-center gap-2 text-sm font-semibold text-[#ffd54f]">
                     <CheckCircle2 className="h-4 w-4" />
-                    Your private wish link
+                    Your personal wish link
                   </div>
                   <div className="flex items-center gap-2 rounded-lg bg-[#2d0a2e]/60 px-3 py-2">
                     <LinkIcon className="h-4 w-4 shrink-0 text-[#ffd54f]/70" />
@@ -308,7 +309,7 @@ export default function WishGenerator() {
                     </Button>
                   </div>
                   <p className="text-xs text-[#fff4e6]/50">
-                    🔒 The link works on this device. Send it on WhatsApp, Instagram, or however you share.
+                    Anyone with this unlisted link can view the greeting. Share it through WhatsApp, Instagram, or any app you like.
                   </p>
                 </motion.div>
               )}

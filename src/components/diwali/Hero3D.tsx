@@ -325,7 +325,7 @@ export default function Hero3D({ interactive = true }: { interactive?: boolean }
   return (
     <Canvas
       camera={{ position: [0, 1, 8], fov: 55 }}
-      dpr={[1, 2]}
+      dpr={[1, 1.5]}
       gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
       style={{ width: "100%", height: "100%" }}
     >

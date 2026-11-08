@@ -1,9 +1,9 @@
 "use client";
 
 /**
- * In-browser wish store — saves personalized Diwali wishes to localStorage.
- * Each wish gets a unique short id; the recipient opens the same site with
- * ?wish=<id> in the URL to see their personalized greeting.
+ * Shared wishes are encoded into the URL fragment so they work across devices
+ * without accounts, a database, or server-side storage. The local store remains
+ * available for opening links created by older versions of the site.
  */
 
 export type DiyaColor = "saffron" | "magenta" | "gold" | "pink" | "purple";
@@ -76,10 +76,14 @@ export function deleteWish(id: string) {
   writeAllWishes(map);
 }
 
-/** Build the shareable URL for a wish. Uses window.location.origin so it works on any host. */
-export function buildWishUrl(id: string): string {
-  if (typeof window === "undefined") return `/?wish=${id}`;
-  return `${window.location.origin}/?wish=${id}`;
+/** Build a shareable, stateless link. The fragment is not sent to the web server. */
+export function buildWishUrl(
+  wish: Pick<Wish, "recipientName" | "senderName" | "message" | "diyaColor">,
+): string {
+  const url = new URL(window.location.href);
+  url.search = "";
+  url.hash = `wish=${encodeURIComponent(JSON.stringify(wish))}`;
+  return url.toString();
 }
 
 /* ------------------------- global diya counter ------------------------- */

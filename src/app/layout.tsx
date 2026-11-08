@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Shubh Deepavali — Light Up the Festival of Lights",
     description: "Interactive 3D Diwali experience with personalized wishes, story, fireworks & rangoli.",
-    url: "https://chat.z.ai",
+    url: process.env.NEXT_PUBLIC_SITE_URL,
     siteName: "Shubh Deepavali",
     type: "website",
   },

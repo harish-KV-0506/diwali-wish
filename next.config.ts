@@ -1,12 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "standalone",
-  /* config options here */
-  typescript: {
-    ignoreBuildErrors: true,
-  },
+  output: "export",
+  basePath: process.env.NEXT_PUBLIC_BASE_PATH || "",
+  trailingSlash: true,
   reactStrictMode: false,
+  turbopack: {
+    root: process.cwd(),
+  },
 };
 
 export default nextConfig;
