@@ -3,6 +3,9 @@
 An interactive Diwali celebration featuring a 3D diya, the story of Diwali,
 fireworks, a virtual diya wall, a rangoli maker, and personalized greetings.
 
+Created by **Harish Kumar** · [LinkedIn](https://www.linkedin.com/in/harish-k-v10) ·
+[GitHub](https://github.com/harish-KV-0506)
+
 ## Personalized wishes
 
 Enter a recipient's name and create a shareable link. The greeting is stored in

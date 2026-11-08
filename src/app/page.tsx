@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Flame, ChevronDown, Sparkles, Heart, Share2, Github } from "lucide-react";
+import { Flame, ChevronDown, Sparkles, Heart, Github, Linkedin } from "lucide-react";
 import { useWishFromUrl } from "@/hooks/use-wish";
 import MandalaBackground from "@/components/diwali/MandalaBackground";
 import StoryScroll from "@/components/diwali/StoryScroll";
@@ -211,6 +211,27 @@ function Footer() {
         </p>
         <div className="flex items-center gap-2 text-sm text-[#fff4e6]/60">
           Made with <Heart className="h-4 w-4 fill-[#ff4081] text-[#ff4081]" /> for the Festival of Lights
+        </div>
+        <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-[#fff4e6]/70">
+          <span>Created by Harish Kumar</span>
+          <a
+            href="https://www.linkedin.com/in/harish-k-v10"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 transition-colors hover:text-[#ffd54f]"
+          >
+            <Linkedin className="h-4 w-4" />
+            LinkedIn
+          </a>
+          <a
+            href="https://github.com/harish-KV-0506"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 transition-colors hover:text-[#ffd54f]"
+          >
+            <Github className="h-4 w-4" />
+            GitHub
+          </a>
         </div>
         <div className="flex items-center gap-4 text-xs text-[#fff4e6]/40">
           <span>© {new Date().getFullYear()}</span>
